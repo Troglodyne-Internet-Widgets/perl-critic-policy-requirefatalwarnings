@@ -93,12 +93,14 @@ PPI::Document
 =cut
 
 sub supported_parameters {
-    return ({
-        name           => 'equivalent_modules',
-        description    => 'Modules that switch fatal warnings on for you.',
-        default_string => 'Moose Moo Mouse strictures Test2::V0',
-        behavior       => 'string list',
-    });
+    return (
+        {
+            name           => 'equivalent_modules',
+            description    => 'Modules that switch fatal warnings on for you.',
+            default_string => 'Moose Moo Mouse strictures Test2::V0',
+            behavior       => 'string list',
+        }
+    );
 }
 
 sub default_severity { return $SEVERITY_MEDIUM }
@@ -157,9 +159,9 @@ sub _is_fatal {
 
     my $fatal;
     foreach my $word (@words) {
-        next if !defined $word;
-        $fatal = 1  if $word eq 'FATAL';
-        return 1    if $fatal && $word eq 'all';
+        next       if !defined $word;
+        $fatal = 1 if $word eq 'FATAL';
+        return 1   if $fatal && $word eq 'all';
     }
 
     return 0;

@@ -49,8 +49,10 @@ foreach my $case ( sort keys %allowed ) {
 # One complaint per document, not one per statement.
 is( violations(qq{use strict;\nuse warnings;\nuse warnings;\n1;\n}), 1, 'reported once per file' );
 
-is( violations(qq{use strict;\nuse warnings;  ## no critic (RequireFatalWarnings)\n1;\n}),
-    0, 'an explicit no-critic is what signs it off' );
+is(
+    violations(qq{use strict;\nuse warnings;  ## no critic (RequireFatalWarnings)\n1;\n}),
+    0, 'an explicit no-critic is what signs it off'
+);
 
 # The list of modules that do it for you is configurable.
 {
@@ -60,10 +62,14 @@ is( violations(qq{use strict;\nuse warnings;  ## no critic (RequireFatalWarnings
         -severity        => 1,
     );
 
-    is( scalar $configured->critique( \qq{use My::Bootstrap;\n1;\n} ),
-        0, 'a configured module counts as having done it' );
-    is( scalar $configured->critique( \qq{use Moose;\n1;\n} ),
-        1, 'and one left out of the list does not' );
+    is(
+        scalar $configured->critique( \qq{use My::Bootstrap;\n1;\n} ),
+        0, 'a configured module counts as having done it'
+    );
+    is(
+        scalar $configured->critique( \qq{use Moose;\n1;\n} ),
+        1, 'and one left out of the list does not'
+    );
 }
 
 done_testing();
