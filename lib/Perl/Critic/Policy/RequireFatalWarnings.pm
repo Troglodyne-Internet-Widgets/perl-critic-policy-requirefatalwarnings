@@ -3,7 +3,7 @@ package Perl::Critic::Policy::RequireFatalWarnings;
 # ABSTRACT: A warning nobody reads is a bug you ship.
 
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use 5.014;
 
@@ -119,6 +119,8 @@ sub violates {
     my ( $self, $elem, $document ) = @_;
 
     my $includes = $document->find('PPI::Statement::Include') || [];
+
+    no autovivification;
 
     my $enabling;
     foreach my $include (@$includes) {
