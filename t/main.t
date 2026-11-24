@@ -1,5 +1,5 @@
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use re '/aa';
 
@@ -8,7 +8,9 @@ use 5.014;
 use Test::More;
 
 use Perl::Critic;
-use Perl::Critic::Policy::RequireFatalWarnings;
+
+# Loaded by name through -single-policy; fail here if it does not compile.
+require Perl::Critic::Policy::RequireFatalWarnings;
 
 # -profile => q{} because Perl::Critic otherwise walks up from cwd looking for
 # a .perlcriticrc, finds this dist's own, and runs every policy in it against
@@ -73,3 +75,14 @@ is(
 }
 
 done_testing();
+
+1;
+
+__END__
+
+=head1 DESCRIPTION
+
+Tests for Perl::Critic::Policy::RequireFatalWarnings.  Runs the policy over
+snippets that it must flag and snippets that it must accept.
+
+=cut
